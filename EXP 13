@@ -1,0 +1,11 @@
+#include <stdio.h>
+int main(){
+    int b[5],p[5],i,j,n=5,m=5,f;
+    for(i=0;i<n;i++) scanf("%d",&b[i]);
+    for(i=0;i<m;i++){
+        scanf("%d",&p[i]); f=-1;
+        for(j=0;j<n;j++) if(b[j]>=p[i]&&(f<0||b[j]<b[f])) f=j; // Best Fit
+        if(f>=0){ printf("P%d->B%d\n",i+1,f+1); b[f]-=p[i]; }
+    }
+    return 0;
+}
