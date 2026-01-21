@@ -1,0 +1,19 @@
+#include <stdio.h>
+int main(){
+    int n,i,qt,t=0,bt[10],rt[10],done;
+    scanf("%d",&n);
+    for(i=0;i<n;i++) scanf("%d",&bt[i]),rt[i]=bt[i];
+    scanf("%d",&qt);
+
+    do{
+        done=1;
+        for(i=0;i<n;i++)
+            if(rt[i]>0){
+                done=0;
+                if(rt[i]>qt) t+=qt, rt[i]-=qt;
+                else t+=rt[i], printf("P%d WT=%d\n",i+1,t-bt[i]), rt[i]=0;
+            }
+    }while(!done);
+
+    return 0;
+}
