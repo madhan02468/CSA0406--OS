@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+
+int main() {
+    int fd;
+    struct stat st;
+    DIR *dir;
+    struct dirent *entry;
+    char buf[100];
+
+    // 1. Open file and get file descriptor flags
+    fd = open("example.txt", O_CREAT | O_RDWR, 0644);
+    if(fd < 0) { perror("open"); return 1; }
+
+    int flags = fcntl(fd, F_GETFL);  // Get file status flags
+    printf("File descriptor flags: %d\n", flags);
+
+    // 2. Write to file
+    write(fd, "Hel
