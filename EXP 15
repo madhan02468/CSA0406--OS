@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+
+struct user {
+    char uname[20];
+    char fname[5][20];
+    int fcount;
+} u[5];
+
+int ucount = 0;
+
+int main() {
+    int ch, i, j;
+    char uname[20], fname[20];
+
+    while (1) {
+        printf("\n1.Create User  2.Create File  3.Display  4.Exit\n");
+        scanf("%d", &ch);
+
+        if (ch == 1) {
+            printf("User name: ");
+            scanf("%s", u[ucount].uname);
+            u[ucount].fcount = 0;
+            ucount++;
+        }
+
+        else if (ch == 2) {
+            printf("User name: ");
+            scanf("%s", uname);
+            for (i = 0; i < ucount; i++)
+                if (strcmp(u[i].uname, uname) == 0) {
+                    printf("File name: ");
+                    scanf("%s", u[i].fname[u[i].fcount++]);
+                }
+        }
+
+        else if (ch == 3) {
+            for (i = 0; i < ucount; i++) {
+                printf("\nUser: %s", u[i].uname);
+                for (j = 0; j < u[i].fcount; j++)
+                    printf("\n  %s", u[i].fname[j]);
+            }
+        }
+
+        else break;
+    }
+    return 0;
+}
