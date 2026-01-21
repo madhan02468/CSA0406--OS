@@ -1,0 +1,18 @@
+#include <stdio.h>
+int main(){
+    int n,i,j,bt[10],t,w=0;
+    scanf("%d",&n);
+    for(i=0;i<n;i++) scanf("%d",&bt[i]);
+
+    for(i=0;i<n-1;i++)
+        for(j=i+1;j<n;j++)
+            if(bt[i]>bt[j]){
+                t=bt[i]; bt[i]=bt[j]; bt[j]=t;
+            }
+
+    for(i=0;i<n;i++){
+        printf("P%d WT=%d\n",i+1,w);
+        w+=bt[i];
+    }
+    return 0;
+}
