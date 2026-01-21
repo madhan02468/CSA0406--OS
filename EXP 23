@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main() {
+    int m, p, i, j;
+    int mem[10], proc[10], alloc[10];
+
+    printf("Enter memory blocks: "); scanf("%d", &m);
+    for(i=0;i<m;i++) scanf("%d",&mem[i]);
+
+    printf("Enter processes: "); scanf("%d", &p);
+    for(i=0;i<p;i++) scanf("%d",&proc[i]);
+
+    for(i=0;i<p;i++) {
+        alloc[i]=-1;
+        for(j=0;j<m;j++) {
+            if(mem[j]>=proc[i]) {
+                alloc[i]=j; mem[j]-=proc[i]; break;
+            }
+        }
+    }
+
+    printf("\nProcess\tSize\tBlock\n");
+    for(i=0;i<p;i++)
+        printf("%d\t%d\t%s\n",i+1,proc[i],alloc[i]!=-1 ? "Allocated":"Not Allocated");
+
+    return 0;
+}
