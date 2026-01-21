@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <string.h>
+
+struct m{ long t; char d[20]; };
+
+int main(){
+    int id=msgget(1234,0666|IPC_CREAT);
+    struct m x={1,"Hello"};
+    msgsnd(id,&x,sizeof(x.d),0);
+    msgrcv(id,&x,sizeof(x.d),1,0);
+    printf("%s",x.d);
+    msgctl(id,IPC_RMID,0);
+    return 0;
+}
