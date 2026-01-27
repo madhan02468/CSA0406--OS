@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+struct File {
+    char name[20];
+    char owner[10];
+    char group[10];
+    int permissions[3][3]; 
+    // permissions[userType][permType]
+    // userType: 0=owner,1=group,2=others
+    // permType: 0=read,1=write,2=execute
+};
+
+void showPermissions(struct File f) {
+    const char *userTypes[] = {"Owner", "Group", "Others"};
+    const char *permTypes[] = {"Read", "Write", "Execute"};
+
+    printf("\nFile: %s\n", f.name);
+    for (int i = 0; i < 3; i++) {
+        printf("%s permissions: ", userTypes[i]);
+        for (int j = 0; j < 3; j++) {
+            if (f.permissions[i][j])
+                printf("%s ", permTypes[j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    struct File f = {"report.txt", "barani", "team", {{1,1,1},{1,0,1},{1,0,0}}};
+
+    printf("--- Linux File Access Permissions Simulation ---\n");
+    showPermissions(f);
+
+    return 0;
+}
