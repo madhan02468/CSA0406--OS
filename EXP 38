@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, i, j, head, direction;
+    int req[50], disk_size, total = 0;
+
+    printf("Enter disk size: ");
+    scanf("%d", &disk_size);
+
+    printf("Enter number of disk requests: ");
+    scanf("%d", &n);
+
+    printf("Enter disk requests sequence: ");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &req[i]);
+    }
+
+    printf("Enter initial head position: ");
+    scanf("%d", &head);
+
+    printf("Enter direction (0 = left, 1 = right): ");
+    scanf("%d", &direction);
+
+    // Sort requests
+    for (i = 0; i < n-1; i++) {
+        for (j = i+1; j < n; j++) {
+            if (req[i] > req[j]) {
+                int temp = req[i];
+                req[i] = req[j];
+                req[j] = temp;
+            }
+        }
+    }
+
+    printf("\n--- SCAN Disk Scheduling Simulation ---\n");
+    printf("Head movement sequence:\n");
+
+    if (direction == 1) { // moving right
+        // service requests greater than head
+        for (i = 0; i < n; i++) {
+            if (req[i] >= head) {
+                printf("Head moves from %d to %d\n", head, req[i]);
+                total += abs(req[i] - head);
+                head = req[i];
+            }
+        }
+        // go to end of disk
+        printf("Head moves from %d to %d\n", head, disk_size-1);
+        total += abs((disk_size-1) - head);
+        head = disk_size-1;
+        // service remaining requests on the left
+        for (i = n-1; i >= 0; i--) {
+            if (req[i] < head) {
+                printf("Head moves from %d to %d\n", head, req[i]);
+                total += abs(req[i] - head);
+                head = req[i];
+            }
+        }
+    } else { // moving left
+        // service requests smaller than head
+        for (i = n-1; i >= 0; i--) {
+            if (req[i] <= head) {
+                printf("Head moves from %d to %d\n", head, req[i]);
+                total += abs(req[i] - head);
+                head = req[i];
+            }
+        }
+        // go to start of disk
+        printf("Head moves from %d to %d\n", head, 0);
+        total += abs(head - 0);
+        head = 0;
+        // service remaining requests on the right
+        for (i = 0; i < n; i++) {
+            if (req[i] > head) {
+                printf("Head moves from %d to %d\n", head, req[i]);
+                total += abs(req[i] - head);
+                head = req[i];
+            }
+        }
+    }
+
+    printf("\nTotal head movement = %d\n", total);
+    printf("Average head movement = %.2f\n", (float)total/n);
+
+    return 0;
+}
