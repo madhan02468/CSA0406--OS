@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Block {
+    int blockNumber;
+    struct Block *next;
+};
+
+struct File {
+    char name[20];
+    struct Block *start;
+    struct Block *end;
+};
+
+int main() {
+    struct File f;
+    int n, i, bnum;
+    struct Block *newBlock, *temp;
+
+    printf("Enter file name: ");
+    scanf("%s", f.name);
+
+    printf("Enter number of blocks: ");
+    scanf("%d", &n);
+
+    f.start = f.end = NULL;
+
+    for (i = 0; i < n; i++) {
+        printf("Enter block number for block %d: ", i+1);
+        scanf("%d", &bnum);
+
+        newBlock = (struct Block*)malloc(sizeof(struct Block));
+        newBlock->blockNumber = bnum;
+        newBlock->next = NULL;
+
+        if (f.start == NULL) {
+            f.start = f.end = newBlock;
+        } else {
+            f.end->next = newBlock;
+            f.end = newBlock;
+        }
+    }
+
+    printf("\n--- Linked File Allocation Simulation ---\n");
+    printf("File: %s\n", f.name);
+    printf("Blocks linked as: ");
+
+    temp = f.start;
+    while (temp != NULL) {
+        printf("%d -> ", temp->blockNumber);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+
+    printf("\nAccessing file sequentially via linked blocks:\n");
+    temp = f.start;
+    i = 1;
+    while (temp != NULL) {
+        printf("Accessing Block %d of file %s\n", temp->blockNumber, f.name);
+        temp = temp->next;
+        i++;
+    }
+
+    return 0;
+}
