@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 50
+
+struct File {
+    char name[20];
+    int indexBlock[MAX];   // pointers to actual blocks
+    int length;            // number of blocks
+};
+
+int main() {
+    struct File f;
+    int i;
+
+    printf("Enter file name: ");
+    scanf("%s", f.name);
+
+    printf("Enter number of blocks: ");
+    scanf("%d", &f.length);
+
+    printf("Enter block numbers allocated to the file:\n");
+    for (i = 0; i < f.length; i++) {
+        scanf("%d", &f.indexBlock[i]);
+    }
+
+    printf("\n--- Indexed File Allocation Simulation ---\n");
+    printf("File: %s\n", f.name);
+    printf("Index Block contains pointers:\n");
+    for (i = 0; i < f.length; i++) {
+        printf("Entry %d -> Block %d\n", i, f.indexBlock[i]);
+    }
+
+    printf("\nAccessing file sequentially via index block:\n");
+    for (i = 0; i < f.length; i++) {
+        printf("Accessing Block %d of file %s\n", f.indexBlock[i], f.name);
+    }
+
+    return 0;
+}#include <stdio.h>
+#include <string.h>
+
+#define MAX 50
+
+struct File {
+    char name[20];
+    int indexBlock[MAX];   // pointers to actual blocks
+    int length;            // number of blocks
+};
+
+int main() {
+    struct File f;
+    int i;
+
+    printf("Enter file name: ");
+    scanf("%s", f.name);
+
+    printf("Enter number of blocks: ");
+    scanf("%d", &f.length);
+
+    printf("Enter block numbers allocated to the file:\n");
+    for (i = 0; i < f.length; i++) {
+        scanf("%d", &f.indexBlock[i]);
+    }
+
+    printf("\n--- Indexed File Allocation Simulation ---\n");
+    printf("File: %s\n", f.name);
+    printf("Index Block contains pointers:\n");
+    for (i = 0; i < f.length; i++) {
+        printf("Entry %d -> Block %d\n", i, f.indexBlock[i]);
+    }
+
+    printf("\nAccessing file sequentially via index block:\n");
+    for (i = 0; i < f.length; i++) {
+        printf("Accessing Block %d of file %s\n", f.indexBlock[i], f.name);
+    }
+
+    return 0;
+}
